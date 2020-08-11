@@ -6,7 +6,7 @@ const { queryParamArr } = require('../modules/pool');
 
 const salt = crypto.randomBytes(32).toString('hex');
 
-const user = {
+const user = { 
     signup: async(email,password,salt,name)=>{
         const fileds = 'email,password,salt,name';
         const questions='?,?,?,?';
