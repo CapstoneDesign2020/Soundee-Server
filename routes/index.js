@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/user',require('./users'));
-
+router.use('chart',require('./chart'));
 
 module.exports = router;
