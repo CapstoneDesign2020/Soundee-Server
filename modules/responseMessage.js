@@ -25,5 +25,7 @@ module.exports = {
     READ_PROFILE_SUCCESS: '프로필 조회 성공',
     UNSUPPORTED_TYPE: '지원하지 않는 타입입니다.',
 
+    // 차트 가져오기
+    GET_CHART_SUCCESS : '차트 데이터 가져오기 성공',
     DB_ERROR: 'DB 오류'
 };

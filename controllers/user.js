@@ -81,6 +81,7 @@ const user ={
           res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.LOGIN_SUCCESS,{
             accessToken : token
           }));
+          console.log(req.cookies.accessToken);
         }catch(error){
           return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
         }
