@@ -1,5 +1,5 @@
-// const jwt = require('../modules/jwt');
-const jwt = require('jsonwebtoken');
+const jwt = require('../modules/jwt');
+//const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretKey').secretKey;
 const MSG = require('../modules/responseMessage');
 const CODE = require('../modules/statusCode');
@@ -15,15 +15,15 @@ const authUtil = {
             return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
         }
         const user = await jwt.verify(token,secretKey);
-        // if (user === TOKEN_EXPIRED) {
-        //     return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
-        // }
-        // if (user === TOKEN_INVALID) {
-        //     return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
-        // }
-        // if (user.userIdx === undefined) {
-        //     return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
-        // }
+        if (user === TOKEN_EXPIRED) {
+            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
+        }
+        if (user === TOKEN_INVALID) {
+            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+        }
+        if (user.idx === undefined) {
+            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+        }
         req.decoded = user;
         console.log("user",req.decoded.idx)
         next();

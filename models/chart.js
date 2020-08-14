@@ -5,7 +5,8 @@ const chart = {
     getChart : async (userIdx)=>{
         const daily_query = `select class,date_format(eventdate,'%Y%m%d') as 'date',count('date') as 'value' 
                                 from ${table} 
-                                where sound_userIdx = ${userIdx} and (date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d') ) group by class, date;`;
+                                where sound_userIdx = ${userIdx} and (date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d') ) 
+                                group by class, date;`;
         const weekly_query = `select class,date_format(eventdate,'%Y%m%d') as 'date',count(date_format(eventdate,'%Y%m%d')) as 'value'
                                 from ${table}
                                 where sound_userIdx =${userIdx} and (eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW())
@@ -27,7 +28,7 @@ const chart = {
             total_chart.weekly = weekly_result;
             total_chart.monthly = monthly_result;
 
-            console.log(total_chart.daily[0].class);
+            //console.log(total_chart.daily[0].class);
             return total_chart;
         }catch(err){
             if (err.errno == 1062) {
