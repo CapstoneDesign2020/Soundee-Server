@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 const table = 'user';
 const crypto = require('crypto');
 const { profile } = require('console');
-const { queryParamArr } = require('../modules/pool');
+const { queryParamArr, queryParam } = require('../modules/pool');
 
 const salt = crypto.randomBytes(32).toString('hex');
 
@@ -72,6 +72,22 @@ const user = {
                 return -1;
             }
             console.log('getUserByEmail ERROR : ', err);
+            throw err;
+        }
+    },
+    withdrawUser : async(userIdx)=>{
+        const query = `delete from ${table} where userIdx = ${userIdx}`;
+        console.log(userIdx);
+        try{
+            const result = await pool.queryParam(query);
+            console.log("delete",result);
+            return result;
+        }catch(err){
+            if (err.errno == 1062) {
+                console.log('withdrawUser ERROR : ', err.errno, err.code);
+                return -1;
+            }
+            console.log('withdrawUser ERROR : ', err);
             throw err;
         }
     }

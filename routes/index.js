@@ -8,5 +8,6 @@ router.get('/', function(req, res, next) {
 
 router.use('/user',require('./users'));
 router.use('/chart',require('./chart'));
+router.use('/sound',require('./sound'));
 
 module.exports = router;

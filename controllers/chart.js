@@ -5,10 +5,35 @@ let resMessage = require('../modules/responseMessage');
 
 
 const chart ={
-    getChart: async (req,res)=>{
-        const userIdx = req.decoded.idx;
-        const result = await Chart.getChart(userIdx)
-        res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CHART_SUCCESS,result));
+    getDailyChart: async (req,res)=>{
+        try{
+            const userIdx = req.decoded.idx;
+            const result = await Chart.getDailyChart(userIdx)
+            res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CHART_SUCCESS,result));
+        }catch(error){
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
+            // return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
+        }
+    },
+    getWeeklyChart: async (req,res)=>{
+        try{
+            const userIdx = req.decoded.idx;
+            const result = await Chart.getWeeklyChart(userIdx)
+            res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CHART_SUCCESS,result));
+        }catch(error){
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
+            // return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
+        }
+    },
+    getMonthlyChart: async (req,res)=>{
+        try{
+            const userIdx = req.decoded.idx;
+            const result = await Chart.getMonthlyChart(userIdx)
+            res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CHART_SUCCESS,result));
+        }catch(error){
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
+            // return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 

@@ -14,6 +14,9 @@ module.exports = {
     MISS_MATCH_PW: '비밀번호가 맞지 않습니다.',
     MISS_MATCH_ID_OR_PW:'잘못된 아이디 또는 비밀번호 입니다.',
 
+    // 회원 탈퇴
+    WITHDRAW_USER: '회원탈퇴 성공',
+
     // 인증
     EMPTY_TOKEN: '토큰 값이 없습니다.',
     EXPIRED_TOKEN: '토큰 값이 만료되었습니다.',
@@ -27,5 +30,7 @@ module.exports = {
 
     // 차트 가져오기
     GET_CHART_SUCCESS : '차트 데이터 가져오기 성공',
-    DB_ERROR: 'DB 오류'
+    DB_ERROR: 'DB 오류',
+    
+    INTERNAL_SERVER_ERROR: '서버 내부 오류'
 };

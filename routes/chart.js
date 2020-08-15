@@ -4,5 +4,8 @@ const chartController = require('../controllers/chart');
 const AuthMiddleware = require('../middlewares/auth');
 
 // get chart data
-router.get('/',AuthMiddleware.checkToken,chartController.getChart);
+router.get('/daily',AuthMiddleware.checkToken,chartController.getDailyChart);
+router.get('/weekly',AuthMiddleware.checkToken,chartController.getWeeklyChart);
+router.get('/monthly',AuthMiddleware.checkToken,chartController.getMonthlyChart);
+
 module.exports = router;
