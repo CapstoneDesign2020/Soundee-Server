@@ -14,6 +14,9 @@ module.exports = {
     MISS_MATCH_PW: '비밀번호가 맞지 않습니다.',
     MISS_MATCH_ID_OR_PW:'잘못된 아이디 또는 비밀번호 입니다.',
 
+    // 회원 탈퇴
+    WITHDRAW_USER: '회원탈퇴 성공',
+
     // 인증
     EMPTY_TOKEN: '토큰 값이 없습니다.',
     EXPIRED_TOKEN: '토큰 값이 만료되었습니다.',
@@ -25,5 +28,13 @@ module.exports = {
     READ_PROFILE_SUCCESS: '프로필 조회 성공',
     UNSUPPORTED_TYPE: '지원하지 않는 타입입니다.',
 
-    DB_ERROR: 'DB 오류'
+    // 현재 소리
+    GET_CURRENT_SOUND_SUCCESS : '현재 소리 정보 가져오기 성공',
+    NO_CURRENT_SOUND : '현재 소리 정보가 없습니다.',
+
+    // 차트 가져오기
+    GET_CHART_SUCCESS : '차트 데이터 가져오기 성공',
+    DB_ERROR: 'DB 오류',
+    
+    INTERNAL_SERVER_ERROR: '서버 내부 오류'
 };

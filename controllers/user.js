@@ -38,7 +38,7 @@ const user ={
           // 성공
           res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.CREATED_USER));
         }catch(error){
-          return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
+          return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
         }
         
     },
@@ -81,11 +81,20 @@ const user ={
           res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.LOGIN_SUCCESS,{
             accessToken : token
           }));
+          console.log(req.cookies.accessToken);
         }catch(error){
-          return response.respondOnError(error.message, res, statusCode.INTERNAL_SERVER_ERROR);
+          return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
         }
-        
-      
+    },
+    withdraw: async (req,res)=>{
+      try{
+        const userIdx = req.decoded.idx;
+        console.log(userIdx)
+        const result = await User.withdrawUser(userIdx);
+        res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.WITHDRAW_USER));
+      }catch(error){
+        return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
+      }
     }
 }
 module.exports =user;
