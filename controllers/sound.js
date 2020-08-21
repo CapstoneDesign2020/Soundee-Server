@@ -8,7 +8,11 @@ const sound = {
         try{
             const userIdx = req.decoded.idx;
             const result = await Sound.getCurrentSound(userIdx);
-            console.log(result)
+            console.log(result.length)
+            if(result.length===0){
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,resMessage.NO_CURRENT_SOUND));
+                return;
+            }
             res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CURRENT_SOUND_SUCCESS,result));  
         }catch(error){
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));

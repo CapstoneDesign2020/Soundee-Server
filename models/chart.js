@@ -3,16 +3,16 @@ const table = 'sound';
 
 const chart = {
     getChart : async (userIdx)=>{
-        const daily_query = `select class,date_format(eventdate,'%Y%m%d') as 'date',count('date') as 'value' 
+        const daily_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count('date') as 'value' 
                                 from ${table} 
                                 where sound_userIdx = ${userIdx} and (date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d') ) 
                                 group by class, date;`;
-        const weekly_query = `select class,date_format(eventdate,'%Y%m%d') as 'date',count(date_format(eventdate,'%Y%m%d')) as 'value'
+        const weekly_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count(date_format(eventdate,'%Y%m%d')) as 'value'
                                 from ${table}
                                 where sound_userIdx =${userIdx} and (eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW())
                                 group by class, date 
                                 order by class, date asc;`;
-        const monthly_query =`select class,date_format(eventdate,'%Y%m') as 'date',count(date_format(eventdate,'%Y%m')) as 'value'
+        const monthly_query =`select class,date_format(eventdate,'%Y-%m') as 'date',count(date_format(eventdate,'%Y%m')) as 'value'
                                 from ${table}
                                 where sound_userIdx =${userIdx} and (eventdate between date_add(NOW(),INTERVAL -1 year ) AND NOW())
                                 group by class, date 
@@ -62,7 +62,6 @@ const chart = {
         //                 where sound_userIdx =${userIdx} and (eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW())
         //                 group by class, date 
         //                 order by class, date asc;`;
-
         const weekly_chart = new Object();
         const weekly_key_arr = ['sun','mon','tue','wed','thu','fri','sat'];
         let date = new Date();
@@ -93,8 +92,7 @@ const chart = {
         const monthly_chart = new Object();
         const monthly_key_arr = [1,2,3,4,5,6,7,8,9,10,11,12];
         let date = new Date();
-        let month = date.getMonth()+1;
-        
+        let month = date.getMonth()+1;        
         // const query = `select class,date_format(eventdate,'%Y%m') as 'date',count(date_format(eventdate,'%Y%m')) as 'value'
         //                 from ${table}
         //                 where sound_userIdx =${userIdx} and (eventdate between date_add(NOW(),INTERVAL -1 year ) AND NOW())

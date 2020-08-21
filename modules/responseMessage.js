@@ -30,6 +30,8 @@ module.exports = {
 
     // 현재 소리
     GET_CURRENT_SOUND_SUCCESS : '현재 소리 정보 가져오기 성공',
+    NO_CURRENT_SOUND : '현재 소리 정보가 없습니다.',
+
     // 차트 가져오기
     GET_CHART_SUCCESS : '차트 데이터 가져오기 성공',
     DB_ERROR: 'DB 오류',
