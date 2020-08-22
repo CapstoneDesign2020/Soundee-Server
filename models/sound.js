@@ -17,6 +17,35 @@ const sound ={
             console.log('getCurrentSound ERROR : ', err);
             throw err;
         }
+    },
+    searchSoundIdx : async(soundIdx)=>{
+        const query = `select * from ${table} where soundIdx = ${soundIdx}`;
+        try{
+            const result = await pool.queryParam(query);
+            return result;
+        }catch(err){
+            if (err.errno == 1062) {
+                console.log('searchSoundIdx ERROR : ', err.errno, err.code);
+                return -1;
+            }
+            console.log('searchSoundIdx ERROR : ', err);
+            throw err;
+        }
+    },
+    deleteCurrentSound : async(soundIdx)=>{
+        const query = `delete from ${table} where soundIdx = ${soundIdx}`;
+        try{
+            const result = await pool.queryParam(query);
+            console.log("delete",result);
+            return result;
+        }catch(err){
+            if (err.errno == 1062) {
+                console.log('deleteCurrentSound ERROR : ', err.errno, err.code);
+                return -1;
+            }
+            console.log('deleteCurrentSound ERROR : ', err);
+            throw err;
+        }
     }
 }
 

@@ -17,6 +17,22 @@ const sound = {
         }catch(error){
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
         }
+    },
+    deleteCurrentSound : async(req,res)=>{
+        try{
+            const {soundIdx} = req.params;
+            console.log("soundIdz",soundIdx)
+            // 존재하는 soundIdx인지 확인
+            const sound = await Sound.searchSoundIdx(soundIdx);
+            if(sound.length === 0){
+                res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST,resMessage.NO_SOUND_DATA));
+                return;
+            }
+            const result = await Sound.deleteCurrentSound(soundIdx);
+            res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.DELETE_SOUND_DATA_SUCCESS,result));
+        }catch(error){
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
+        }
     }
 }
 module.exports = sound;

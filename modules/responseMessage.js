@@ -31,6 +31,8 @@ module.exports = {
     // 현재 소리
     GET_CURRENT_SOUND_SUCCESS : '현재 소리 정보 가져오기 성공',
     NO_CURRENT_SOUND : '현재 소리 정보가 없습니다.',
+    NO_SOUND_DATA : '지우고자 하는 소리 데이터가 없습니다.',
+    DELETE_SOUND_DATA_SUCCESS : '소리 데이터 지우기 성공',
 
     // 차트 가져오기
     GET_CHART_SUCCESS : '차트 데이터 가져오기 성공',
