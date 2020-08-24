@@ -8,7 +8,7 @@ const AuthMiddleware = require('../middlewares/auth');
 router.post('/signup',userController.signup)
 
 // sign in 
-router.get('/signin',userController.signin)
+router.post('/signin',userController.signin)
 
 // withdraw
 router.delete('/withdraw',AuthMiddleware.checkToken,userController.withdraw);
