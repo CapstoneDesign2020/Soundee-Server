@@ -73,15 +73,15 @@ const user ={
           
           // 성공
           // 쿠키에 저장
-          res.cookie('accessToken',token,{
-            expires: new Date(Date.now() + 604800000), // 유효기간 일주일..?
-            secure: false, // set to true if your using https
-            httpOnly: true,
-          });
+          // res.cookie('accessToken',token,{
+          //   expires: new Date(Date.now() + 604800000), // 유효기간 일주일..?
+          //   secure: false, // set to true if your using https
+          //   httpOnly: true,
+          // });
           res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.LOGIN_SUCCESS,{
             accessToken : token
           }));
-          console.log(req.cookies.accessToken);
+          //console.log(req.cookies.accessToken);
         }catch(error){
           return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
         }
@@ -89,7 +89,7 @@ const user ={
     withdraw: async (req,res)=>{
       try{
         const userIdx = req.decoded.idx;
-        console.log(userIdx)
+        // console.log(userIdx)
         const result = await User.withdrawUser(userIdx);
         res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.WITHDRAW_USER));
       }catch(error){

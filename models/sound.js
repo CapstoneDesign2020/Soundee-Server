@@ -36,7 +36,7 @@ const sound ={
         const query = `delete from ${table} where soundIdx = ${soundIdx}`;
         try{
             const result = await pool.queryParam(query);
-            console.log("delete",result);
+            // console.log("delete",result);
             return result;
         }catch(err){
             if (err.errno == 1062) {

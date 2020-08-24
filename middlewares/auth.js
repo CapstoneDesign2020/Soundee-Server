@@ -9,8 +9,8 @@ const TOKEN_INVALID = -2;
 
 const authUtil = {
     checkToken: async (req, res, next) => {
-        var token = req.cookies.accessToken; // 일단 post맨 테스트 용으로 쿠키에 저장해씀
-        console.log(token)
+        var token = req.headers.accesstoken; // 일단 post맨 테스트 용으로 쿠키에 저장해씀
+        // console.log(token)
         if (!token) {
             return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
         }
@@ -25,7 +25,7 @@ const authUtil = {
             return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
         }
         req.decoded = user;
-        console.log("user",req.decoded.idx)
+        // console.log("user",req.decoded.idx)
         next();
     }
 }
