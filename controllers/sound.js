@@ -33,6 +33,6 @@ const sound = {
         }catch(error){
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR,resMessage.INTERNAL_SERVER_ERROR));
         }
-    }
+    } 
 }
 module.exports = sound;

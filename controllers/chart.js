@@ -26,7 +26,7 @@ const chart ={
         }
     },
     getMonthlyChart: async (req,res)=>{
-        try{
+        try{ 
             const userIdx = req.decoded.idx;
             const result = await Chart.getMonthlyChart(userIdx)
             res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.GET_CHART_SUCCESS,result));

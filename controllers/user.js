@@ -72,7 +72,7 @@ const user ={
           console.log(user)
           
           // 성공
-          // 쿠키에 저장
+          // 쿠키에 저장 - 이거 아님!
           // res.cookie('accessToken',token,{
           //   expires: new Date(Date.now() + 604800000), // 유효기간 일주일..?
           //   secure: false, // set to true if your using https
