@@ -64,7 +64,7 @@ const user = {
         const query=`select * from ${table} where email= "${email}"`;
         try{
             const result = await pool.queryParamArr(query);
-            console.log(result)
+            //console.log(result)
             return result;
         }catch(err){
             if (err.errno == 1062) {
@@ -77,10 +77,10 @@ const user = {
     },
     withdrawUser : async(userIdx)=>{
         const query = `delete from ${table} where userIdx = ${userIdx}`;
-        console.log(userIdx);
+        //console.log(userIdx);
         try{
             const result = await pool.queryParam(query);
-            console.log("delete",result);
+            //console.log("delete",result);
             return result;
         }catch(err){
             if (err.errno == 1062) {
