@@ -1,12 +1,21 @@
 const pool = require('../modules/pool');
 const table = 'sound';
 
+
 const chart = {
     getDailyChart: async(userIdx)=>{
-        const query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count('date') as 'value' 
-                        from ${table} 
-                        where sound_userIdx = ${userIdx} and (date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d') ) 
-                        group by class, date;`;
+        // const query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count('date') as 'value' 
+        //                 from ${table} 
+        //                 where sound_userIdx = ${userIdx} and (date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d') ) 
+        //                 group by class, date;`;
+        const query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date' ,count(eventdate) as 'value' 
+                        from (SELECT sound_class.class, date_format(eventdate,'%Y%m%d') as 'eventdate', b.sound_userIdx
+                                FROM sound_class left OUTER JOIN (select * 
+                                                                    from sound 
+                                                                    where sound_userIdx = ${userIdx}
+                                                                    and date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d')) b
+                                on sound_class.class = b.class ) a
+                        group by a.class;`
         try{
             const result = await pool.queryParam(query);
             return result;
@@ -32,12 +41,21 @@ const chart = {
                                         where sound_userIdx = ${userIdx}
                                         and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW() 
                                         and dayofweek(eventdate) = ${i};`
-                let details_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count(class) as 'value'
-                                    from ${table}
-                                    where sound_userIdx =${userIdx}
-                                    and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW() 
-                                    and dayofweek(eventdate)= ${i}
-                                    group by class;`
+                // let details_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count(class) as 'value'
+                //                     from ${table}
+                //                     where sound_userIdx =${userIdx}
+                //                     and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW() 
+                //                     and dayofweek(eventdate)= ${i}
+                //                     group by class;`
+                let details_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count(eventdate) as 'value'
+                                        from (SELECT sound_class.class, date_format(eventdate,'%Y%m%d') as 'eventdate', b.sound_userIdx
+                                                FROM sound_class left OUTER JOIN (select * 
+                                                                                    from sound 
+                                                                                    where sound_userIdx =${userIdx}
+                                                                                    and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW() 
+                                                                                    and dayofweek(eventdate)= ${i}) b
+                                                on sound_class.class = b.class ) a
+                                        group by class;`
 
                 weekly_chart["day"] = weekly_arr[i-1];
                 let temp = await pool.queryParam(soundSum_query);
@@ -69,11 +87,20 @@ const chart = {
                                         where sound_userIdx = ${userIdx}
                                         and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW() 
                                         and month(eventdate) = ${i};`
-                let details_query = `select class,date_format(eventdate,'%Y-%m') as 'date',count(class) as 'value'
-                                        from ${table}
-                                        where sound_userIdx = ${userIdx}
-                                        and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW() 
-                                        and month(eventdate)= ${i}
+                // let details_query = `select class,date_format(eventdate,'%Y-%m') as 'date',count(class) as 'value'
+                //                         from ${table}
+                //                         where sound_userIdx = ${userIdx}
+                //                         and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW() 
+                //                         and month(eventdate)= ${i}
+                //                         group by class;`
+                let details_query = `select class,date_format(eventdate,'%Y-%m') as 'date',count(eventdate) as 'value'
+                                        from (SELECT sound_class.class, date_format(eventdate,'%Y%m%d') as 'eventdate', b.sound_userIdx
+                                                FROM sound_class left OUTER JOIN (select * 
+                                                                                    from sound 
+                                                                                    where sound_userIdx =${userIdx}
+                                                                                    and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW() 
+                                                                                    and month(eventdate)= ${i}) b
+                                                on sound_class.class = b.class ) a
                                         group by class;`
                 monthly_chart["month"] = monthly_arr[i-1];
                 let temp = await pool.queryParam(soundSum_query);
