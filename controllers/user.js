@@ -79,7 +79,10 @@ const user ={
           //   httpOnly: true,
           // });
           res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.LOGIN_SUCCESS,{
-            accessToken : token
+            accessToken : token,
+            userIdx:user[0].userIdx,
+            email:user[0].email,
+            name:user[0].name
           }));
           //console.log(req.cookies.accessToken);
         }catch(error){
