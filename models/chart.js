@@ -36,7 +36,7 @@ const chart = {
         const weekly_arr = ['sun','mon','tue','wed','thu','fri','sat'];
         let date = new Date();
         let day = date.getDay()+1;
-        day = 5; //발표를 위한 임시 방편...^^
+
         try{
             for(let i=1;i<=day;i++){
                 // let soundSum_query = `select count(eventdate) as soundSum
