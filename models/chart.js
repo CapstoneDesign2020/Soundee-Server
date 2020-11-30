@@ -15,7 +15,7 @@ const chart = {
                                 FROM sound_class left OUTER JOIN (select * 
                                                                     from sound 
                                                                     where sound_userIdx = ${userIdx}
-                                                                    and date_format(eventdate,'%Y%m%d') = date_format("2020-09-03 06:52:31",'%Y%m%d')) b
+                                                                    and date_format(eventdate,'%Y%m%d') = date_format(NOW(),'%Y%m%d')) b
                                 on sound_class.class = b.class ) a
                         group by a.class;`
         try{
@@ -47,7 +47,7 @@ const chart = {
                 let soundSum_query = `select count(eventdate) as soundSum
                                         from ${table}
                                         where sound_userIdx = ${userIdx}
-                                        and eventdate between date_add("2020-09-03 06:52:31",INTERVAL -1 WEEK ) AND "2020-09-03 06:52:31"
+                                        and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW()
                                         and dayofweek(eventdate) = ${i};`
     
                 // let details_query = `select class,date_format(eventdate,'%Y-%m-%d') as 'date',count(eventdate) as 'value'
@@ -64,7 +64,7 @@ const chart = {
                                                 FROM sound_class left OUTER JOIN (select * 
                                                                                     from sound 
                                                                                     where sound_userIdx =${userIdx}
-                                                                                    and eventdate between date_add("2020-09-03 06:52:31",INTERVAL -1 WEEK ) AND "2020-09-03 06:52:31" 
+                                                                                    and eventdate between date_add(NOW(),INTERVAL -1 WEEK ) AND NOW() 
                                                                                     and dayofweek(eventdate)= ${i}) b
                                                 on sound_class.class = b.class ) a
                                         group by class;`
@@ -101,7 +101,7 @@ const chart = {
                 let soundSum_query = `select count(eventdate) as soundSum
                                         from ${table}
                                         where sound_userIdx = ${userIdx}
-                                        and eventdate between date_add("2020-09-03 06:52:31",INTERVAL -1 YEAR ) AND "2020-09-03 06:52:31"
+                                        and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW()
                                         and month(eventdate) = ${i};`
                 // let details_query = `select class,date_format(eventdate,'%Y-%m') as 'date',count(eventdate) as 'value'
                 //                         from (SELECT sound_class.class, date_format(eventdate,'%Y%m%d') as 'eventdate', b.sound_userIdx
@@ -117,7 +117,7 @@ const chart = {
                                                 FROM sound_class left OUTER JOIN (select * 
                                                                                     from sound 
                                                                                     where sound_userIdx =${userIdx}
-                                                                                    and eventdate between date_add("2020-09-03 06:52:31",INTERVAL -1 YEAR ) AND "2020-09-03 06:52:31"
+                                                                                    and eventdate between date_add(NOW(),INTERVAL -1 YEAR ) AND NOW()
                                                                                     and month(eventdate)= ${i}) b
                                                 on sound_class.class = b.class ) a
                                         group by class;`
